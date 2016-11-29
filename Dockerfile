@@ -44,7 +44,7 @@ ENV TENSORFLOW_VERSION 0.11.0
 
 # Install TensorFlow GPU version.
 RUN pip --no-cache-dir install \
-    http://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-${TENSORFLOW_VERSION}-cp27-none-linux_x86_64.whl
+    https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl 
 # --- ~ DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
 
 # Set up our notebook config.
