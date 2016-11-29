@@ -59,9 +59,9 @@ COPY notebooks /notebooks
 COPY run_jupyter.sh /
 
 # TensorBoard
-EXPOSE 6006
+EXPOSE $PORT0
 # IPython
-EXPOSE 8888
+EXPOSE $PORT1
 
 WORKDIR "/notebooks"
 
