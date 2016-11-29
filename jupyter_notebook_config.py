@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Customised for the PORT0
 # ==============================================================================
 import os
 from IPython.lib import passwd
 
 c.NotebookApp.ip = '*'
-c.NotebookApp.port = int(os.getenv('PORT', 8888))
+c.NotebookApp.port = int(os.getenv('PORT0’, 8888))
 c.NotebookApp.open_browser = False
 c.MultiKernelManager.default_kernel_name = 'python2'
 

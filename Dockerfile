@@ -56,13 +56,8 @@ COPY notebooks /notebooks
 # Jupyter has issues with being run directly:
 #   https://github.com/ipython/ipython/issues/7062
 # We just add a little wrapper script.
-COPY run_jupyter.sh /
-
-# TensorBoard
-EXPOSE $PORT0
-# IPython
-EXPOSE $PORT1
+COPY run.sh /
 
 WORKDIR "/notebooks"
 
-CMD ["/run_jupyter.sh"]
+CMD ["/run.sh"]
