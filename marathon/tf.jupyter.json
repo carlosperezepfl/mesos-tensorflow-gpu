@@ -1,0 +1,30 @@
+{
+  "id": "tf.jupyter",
+  "cmd": "/run.sh; /run_jupyter.sh",
+  "cpus": 1,
+  "gpus": 1,  
+  "mem": 128,
+  "disk": 1024,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "carlosperez/mesos-tensorflow-gpu:jupyter",
+      "forcePullImage": true,
+      "network": "HOST"
+    },
+    "type": "MESOS"
+  },
+  "portDefinitions": [
+    {
+      "port": 0,
+      "protocol": "tcp",
+      "name": null,
+      "labels": null
+    },{
+      "port": 0,
+      "protocol": "tcp",
+      "name": null,
+      "labels": null
+    }
+  ]
+}
