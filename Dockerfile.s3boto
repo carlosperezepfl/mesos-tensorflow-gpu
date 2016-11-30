@@ -1,0 +1,8 @@
+FROM carlosperez/mesos-tensorflow-gpu
+
+MAINTAINER Carlos Perez <carlos.perez@epfl.ch>
+
+apt-get update
+apt-get install python-tk -y
+
+pip install boto
