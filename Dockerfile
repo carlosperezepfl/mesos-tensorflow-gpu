@@ -38,7 +38,7 @@ RUN pip --no-cache-dir install \
 # Fixed version
 # Install TensorFlow GPU version.
 RUN pip --no-cache-dir install \
-    https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl 
+    https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.0rc0-cp27-none-linux_x86_64.whl
 
 # Wrapper for TFBoard
 COPY run.sh /
