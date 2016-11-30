@@ -1,6 +1,7 @@
 FROM nvidia/cuda:8.0-cudnn5-devel
 
-MAINTAINER Craig Citro <craigcitro@google.com>
+# Based on container from Craig Citro <craigcitro@google.com>
+MAINTAINER Carlos Perez <carlos.perez@epfl.ch>
 
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -34,30 +35,13 @@ RUN pip --no-cache-dir install \
         && \
     python -m ipykernel.kernelspec
 
-ENV TENSORFLOW_VERSION 0.11.0
-
-# --- DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
-# These lines will be edited automatically by parameterized_docker_build.sh. #
-# COPY _PIP_FILE_ /
-# RUN pip --no-cache-dir install /_PIP_FILE_
-# RUN rm -f /_PIP_FILE_
-
+# Fixed version
 # Install TensorFlow GPU version.
 RUN pip --no-cache-dir install \
     https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl 
-# --- ~ DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
 
-# Set up our notebook config.
-COPY jupyter_notebook_config.py /root/.jupyter/
-
-# Copy sample notebooks.
-COPY notebooks /notebooks
-
-# Jupyter has issues with being run directly:
-#   https://github.com/ipython/ipython/issues/7062
-# We just add a little wrapper script.
+# Wrapper for TFBoard
 COPY run.sh /
 
-WORKDIR "/notebooks"
-
+# Change TFBoard port to $PORT0
 CMD ["/run.sh"]
