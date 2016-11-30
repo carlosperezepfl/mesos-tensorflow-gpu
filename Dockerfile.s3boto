@@ -2,7 +2,7 @@ FROM carlosperez/mesos-tensorflow-gpu
 
 MAINTAINER Carlos Perez <carlos.perez@epfl.ch>
 
-apt-get update
-apt-get install python-tk -y
+RUN apt-get update
+RUN apt-get install python-tk -y
 
-pip install boto
+RUN pip install boto
