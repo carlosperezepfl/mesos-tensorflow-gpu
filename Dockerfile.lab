@@ -11,9 +11,10 @@ RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/s
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxP8lr3suohvNqTZyzqIud0YTAj9Z7vpqanAUy0EfGv3oeFmEaYPWr7psTyH7Zqo/wt/py/+XejmobextPSFUrPTgmrj7q9a2kEMXb9QIuhp9w4p0ARgOb3WHV6ulo37G/f4v3QOidCkYSJ0osOvVR9DTa2t32NtqKIy0q9FmKdxD8bUx1BxUdv1rzokzzQh6XNsGJRhtnTPc6FgIt9ClLRcgZDYx5MXUv6kRc0HuS5mGO6Py0GQEz50P3YB3vJEoejOuNykme+Vuj0R/kt/Sik8yR9Mev+pRpxViJAfCOIBnAyHzSIOmB7qQED1Q+nZruRHPXwDDq9grugjlf8Vi5Q== carlos.perez@epfl.ch" >> /root/.ssh/authorized_keys 
-
 RUN mkdir ~/.ssh
+
+RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxP8lr3suohvNqTZyzqIud0YTAj9Z7vpqanAUy0EfGv3oeFmEaYPWr7psTyH7Zqo/wt/py/+XejmobextPSFUrPTgmrj7q9a2kEMXb9QIuhp9w4p0ARgOb3WHV6ulo37G/f4v3QOidCkYSJ0osOvVR9DTa2t32NtqKIy0q9FmKdxD8bUx1BxUdv1rzokzzQh6XNsGJRhtnTPc6FgIt9ClLRcgZDYx5MXUv6kRc0HuS5mGO6Py0GQEz50P3YB3vJEoejOuNykme+Vuj0R/kt/Sik8yR9Mev+pRpxViJAfCOIBnAyHzSIOmB7qQED1Q+nZruRHPXwDDq9grugjlf8Vi5Q== carlos.perez@epfl.ch" >>  ~/.ssh/authorized_keys 
+
 RUN chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh/
 ####### SSH Daemon
 
