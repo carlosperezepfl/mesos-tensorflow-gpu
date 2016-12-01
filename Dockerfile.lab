@@ -2,6 +2,22 @@ FROM ubuntu:16.04
 
 MAINTAINER Carlos Perez <carlos.perez@epfl.ch>
 
+####### SSH Daemon
+RUN apt-get update && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:screencast' | chpasswd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+RUN echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxP8lr3suohvNqTZyzqIud0YTAj9Z7vpqanAUy0EfGv3oeFmEaYPWr7psTyH7Zqo/wt/py/+XejmobextPSFUrPTgmrj7q9a2kEMXb9QIuhp9w4p0ARgOb3WHV6ulo37G/f4v3QOidCkYSJ0osOvVR9DTa2t32NtqKIy0q9FmKdxD8bUx1BxUdv1rzokzzQh6XNsGJRhtnTPc6FgIt9ClLRcgZDYx5MXUv6kRc0HuS5mGO6Py0GQEz50P3YB3vJEoejOuNykme+Vuj0R/kt/Sik8yR9Mev+pRpxViJAfCOIBnAyHzSIOmB7qQED1Q+nZruRHPXwDDq9grugjlf8Vi5Q== carlos.perez@epfl.ch' >> /root/.ssh/authorized_keys 
+
+RUN mkdir ~/.ssh
+RUN chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh/
+####### SSH Daemon
+
+####### CUDA / CUDNN / GPU STUFF 
 LABEL com.nvidia.volumes.needed="nvidia_driver"
 
 RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
@@ -57,6 +73,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
 
+####### CUDA / CUDNN / GPU STUFF 
+
+####### TENSORFLOW
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
@@ -94,7 +113,9 @@ ENV TENSORFLOW_VERSION 0.12.0-rc0
 # Install TensorFlow GPU version.
 RUN pip --no-cache-dir install \
     https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.0rc0-cp27-none-linux_x86_64.whl
+####### TENSORFLOW
 
+####### JUPYTER CONFIG + SAMPLES
 # Set up our notebook config.
 COPY jupyter_notebook_config.py /root/.jupyter/
 
@@ -107,5 +128,6 @@ COPY /run_jupyter.sh /
 COPY notebooks /notebooks
 
 WORKDIR "/notebooks"
+####### JUPYTER CONFIG + SAMPLES
 
 CMD ["/run_jupyter.sh"]
